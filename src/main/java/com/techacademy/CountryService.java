@@ -1,9 +1,11 @@
 package com.techacademy;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class CountryService {
@@ -19,4 +21,22 @@ public class CountryService {
         
         return repository.findAll();
     }
+    public Country getCountry(String code) {
+        
+        Optional<Country> option = repository.findById(code);
+       
+        Country country = option.orElse(null);
+        return country;
+    }
+    @Transactional
+    public void updateCountry(String code,String name,int population) {
+        Country country = new Country(code,name,population);
+        repository.save(country);
+    }
+    @Transactional
+    public void deleteCountry(String code) {
+        repository.deleteById(code);
+    }
+
+        
 }
