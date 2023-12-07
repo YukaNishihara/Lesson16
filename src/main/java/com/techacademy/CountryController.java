@@ -21,8 +21,7 @@ public class CountryController {
     public String getList(Model model) {
        
         model.addAttribute("countrylist", service.getCountryList());
-        //テスト
-        model.addAttribute("code", "${data.code}");
+        
         
         return "country/list";
     }
@@ -33,7 +32,7 @@ public class CountryController {
         Country country = code != null ? service.getCountry(code) : new Country();
         
         model.addAttribute("country", country);
-        
+        model.addAttribute("code", code);
         
         return "country/detail";
     }
@@ -55,7 +54,7 @@ public class CountryController {
         
         Country country = code != null ? service.getCountry(code) : new Country();
         
-        //model.addAttribute("country", country);
+        model.addAttribute("country", country);
         model.addAttribute("code", code);
         return "country/delete";
     }
